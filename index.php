@@ -17,7 +17,7 @@ $second_latest_row = $db_query->fetch(PDO::FETCH_OBJ);
 
       <div class="starter-template">
         <h1><?php echo "<a href='viewentry.php?id=" . $latest_row->EntryID . "'>" . $latest_row->Subject . "</a>"; ?></h1>
-        <p class="lead"><?php echo "<i>In <a href='viewentry.php?id=" . $latest_row->CategoryID . "'>"
+        <p><?php echo "<i>In <a href='viewentry.php?id=" . $latest_row->CategoryID . "'>"
         . $latest_row->CategoryName . "</a> - Posted on " . date("F jS Y", strtotime($latest_row->DatePosted)) . "</i>"; ?></p>
         <p class="lead"><?php echo nl2br($latest_row->Body); ?></p>
         <p class="lead"><?php
@@ -26,10 +26,10 @@ $second_latest_row = $db_query->fetch(PDO::FETCH_OBJ);
         $comments_result = $db_handler->query($comments_sql);
         $comments_rows_count = count($comments_result->fetchAll());
         if ($comments_rows_count == 0) {
-          echo "<p class='lead'>No comments.</p>";
+          echo "<p>No comments.</p>";
         } else {
           $comments_result2 = $db_handler->query($comments_sql);
-          echo "<p class='lead'>(<strong>" . $comments_rows_count . "</strong>) comments : ";
+          echo "<p>(<strong>" . $comments_rows_count . "</strong>) comments : ";
           $i = 1;
           while ($comment_row = $comments_result2->fetch(PDO::FETCH_ASSOC)) {
             echo "<a href='viewentry.php?id=" . $latest_row->EntryID . "#comment" . $i . "'>" . $comment_row['Name'] . "</a> ";

@@ -39,11 +39,45 @@ $entries_result = $db_handler->query($sql);
   <?php
     while ($entry_row = $entries_result->fetch(PDO::FETCH_OBJ)) {
       echo "<h2>" . $entry_row->Subject . "</h2><br />";
-      echo "<p class='lead'><i>In <a href='viewcat.php?id=" . $entry_row->CategoryID . "'>" . $entry_row->CategoryName . "</a> - Posted on " .
+      echo "<p><i>In <a href='viewcat.php?id=" . $entry_row->CategoryID . "'>" . $entry_row->CategoryName . "</a> - Posted on " .
       date("F jS Y", strtotime($entry_row->DatePosted)) . "</i></p>";
       echo "<p class='lead'>" . nl2br($entry_row->Body) . "</p>";
+
+      $comments_sql = "SELECT * FROM Comments WHERE BlogID = " . $validentry . " ORDER BY DatePosted DESC;";
+      $comments_result = $db_handler->query($comments_sql);
+      $comments_row_num = count($comments_result->fetchAll());
+      if ($comments_row_num == 0) {
+        echo "<p class='lead'>No comments.</p>";
+      } else {
+        $i = 1;
+        $comments_result = $db_handler->query($comments_sql);
+        while ($comments_row = $comments_result->fetch(PDO::FETCH_OBJ)) {
+          echo "<a name='comment" . $i . "'>";
+          echo "<p>Comment by " . $comments_row->Name . " on " . date("F jS Y", strtotime($comments_row->DatePosted)) . "</p></a>";
+          echo "<p>" . $comments_row->Comment . "</p>";
+          $i++;
+        }
+      }
     }
   ?>
+
+  <h3>Leave a comment</h3>
+  <form action="<?php echo $SCRIPT_NAME . "?id=" . $validentry; ?>" method="POST">
+    <table>
+      <tr>
+        <td>Your name: </td>
+        <td><input type="text" name="name"></td>
+      </tr>
+      <tr>
+        <td>Comments: </td>
+        <td><textarea name="comment" rows="10" cols="50"></textarea></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" name="submit" value="Add comment"></td>
+      </tr>
+    </table>
+  </form>
   </div>
 
 <?php
