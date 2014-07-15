@@ -27,7 +27,6 @@ if (isset($_POST['submit'])) {
 #          $validentry . ", CURRENT_DATE, '" . $_POST['name'] . "', '" . $_POST['comment'] . "');";
 
   $sql = "INSERT INTO Comments (BlogID, DatePosted, Name, Comment) VALUES (" . $validentry . ", CURRENT_DATE, ?, ?);";
-  echo $sql;
   $st_handler = $db_handler->prepare($sql);
   $st_handler->bindParam(1, $_POST['name']);
   $st_handler->bindParam(2, $_POST['comment']);
@@ -36,6 +35,7 @@ if (isset($_POST['submit'])) {
   } else {
     $st_handler->execute()
     or die(print_r($st_handler->errorInfo(), true));
+    header("Location: http://" . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'] . "?id=" . $validentry);
   }
 } else {
 
