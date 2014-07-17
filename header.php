@@ -1,6 +1,7 @@
 <?php
 
-require("config.php");
+require 'config.php';
+session_start();
 
 try {
   $db_handler = new PDO("sqlite:blogtastic.db");
@@ -59,19 +60,24 @@ try {
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="./viewcat.php">Categories</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+            <li><a href="viewcat.php">Categories</a></li>
+
+            <?php if (isset($_SESSION['Username'])): ?>
+              <li><a href='logout.php'>Logout</a></li>
+            <?php else: ?>
+              <li><a href='login.php'>Login</a></li>
+            <?php endif ?>
+
+            <?php if (isset($_SESSION['Username'])): ?>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="addentry.php">Entry</a></li>
+                  <li><a href="addcat.php">Category</a></li>
+                </ul>
+              </li>
+            <?php endif ?>
+
           </ul>
           <form class="navbar-form navbar-right" role="form">
             <div class="form-group">
