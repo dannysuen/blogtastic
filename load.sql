@@ -15,4 +15,4 @@ insert into Comments values(2, 1, CURRENT_DATE, 'Jim', 'Hope you have lots of fu
 insert into Comments values(3, 3, CURRENT_DATE, 'Dave Greenbaum', 'With savings accounts and even CDs paying less than 1%, sometimes the best interest rates come from savings accounts associated with a secured credit card.');
 insert into Comments(BlogID, DatePosted, Name, Comment) values(3, CURRENT_DATE, 'VABlitz', 'But then you lose the cash back off of suckers that abuse credit cards.');
 
-insert into Logins values(1, 'Danny', '1')
+insert into Logins values(1, 'Danny', '1');

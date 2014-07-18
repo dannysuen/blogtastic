@@ -1,15 +1,5 @@
 <?php
 
-require("config.php");
-session_start();
-
-try {
-  $db_handler = new PDO("sqlite:blogtastic.db");
-} catch (PDOException $e) {
-  echo $e->getMessage();
-}
-
-
 
 ?>
 

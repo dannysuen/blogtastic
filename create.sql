@@ -1,10 +1,10 @@
 create table Categories (
-  CategoryID int PRIMARY KEY,
+  CategoryID integer primary key,
   CategoryName text
 );
 
 create table Entries (
-  EntryID int PRIMARY KEY,
+  EntryID integer primary key,
   CategoryID int,
   DatePosted text,
   Subject text,
@@ -12,7 +12,7 @@ create table Entries (
 );
 
 create table Comments (
-  CommentID int PRIMARY KEY,
+  CommentID integer primary key,
   BlogID int,
   DatePosted text,
   Name text,
@@ -20,7 +20,7 @@ create table Comments (
 );
 
 create table Logins (
-  ID int PRIMARY KEY,
+  ID integer primary key,
   Username text,
   Password text
 );

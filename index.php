@@ -3,7 +3,6 @@ require("header.php");
 
 $sql = "select Entries.*, Categories.CategoryName from Entries, Categories where Entries.CategoryID = Categories.CategoryID order by DatePosted desc limit 1";
 
-
 $db_query = $db_handler->query($sql);
 
 $db_query2 = $db_handler->query($sql);
@@ -18,7 +17,14 @@ $second_latest_row = $db_query->fetch(PDO::FETCH_OBJ);
       <div class="starter-template">
         <h1><?php echo "<a href='viewentry.php?id=" . $latest_row->EntryID . "'>" . $latest_row->Subject . "</a>"; ?></h1>
         <p><?php echo "<i>In <a href='viewentry.php?id=" . $latest_row->CategoryID . "'>"
-        . $latest_row->CategoryName . "</a> - Posted on " . date("F jS Y", strtotime($latest_row->DatePosted)) . "</i>"; ?></p>
+        . $latest_row->CategoryName . "</a> - Posted on " . date("F jS Y", strtotime($latest_row->DatePosted)) . "</i>";
+
+        if (isset($_SESSION['Username'])) {
+          echo " [<a href='updateentry.php?id=" . $latest_row->EntryID . "'>edit</a>]";
+        }
+        ?>
+        </p>
+
         <p class="lead"><?php echo nl2br($latest_row->Body); ?></p>
         <p class="lead"><?php
 

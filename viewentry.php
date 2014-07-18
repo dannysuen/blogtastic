@@ -63,7 +63,13 @@ if (isset($_POST['submit'])) {
       while ($entry_row = $entries_result->fetch(PDO::FETCH_OBJ)) {
         echo "<h2>" . $entry_row->Subject . "</h2><br />";
         echo "<p><i>In <a href='viewcat.php?id=" . $entry_row->CategoryID . "'>" . $entry_row->CategoryName . "</a> - Posted on " .
-        date("F jS Y", strtotime($entry_row->DatePosted)) . "</i></p>";
+        date("F jS Y", strtotime($entry_row->DatePosted)) . "</i> ";
+
+        if (isset($_SESSION['Username'])) {
+          echo " [<a href='updateentry.php?id=" . $entry_row->EntryID . "'>edit</a>]";
+        }
+
+        echo "</p>";
         echo "<p class='lead'>" . nl2br($entry_row->Body) . "</p>";
 
         $comments_sql = "SELECT * FROM Comments WHERE BlogID = " . $validentry . " ORDER BY DatePosted DESC;";

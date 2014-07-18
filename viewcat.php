@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
   }
 
   if (isset($error) && $error == 1) {
-    header("Location: " . $config_basedir . "/viewcat.php");
+    header("Location: " . $config_basedir . "viewcat.php");
   } else {
     $validcat = $_GET['id'];
   }
