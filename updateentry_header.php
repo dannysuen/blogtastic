@@ -1,18 +1,3 @@
-<?php
-
-require("config.php");
-session_start();
-
-try {
-  $db_handler = new PDO("sqlite:blogtastic.db");
-} catch (PDOException $e) {
-  echo $e->getMessage();
-}
-
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -60,9 +45,9 @@ try {
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="./index.php">Home</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
             <li><a href="#about">About</a></li>
-            <li class="active"><a href="#">Categories</a></li>
+            <li><a href="viewcat.php">Categories</a></li>
 
             <?php if (isset($_SESSION['Username'])): ?>
               <li><a href='logout.php'>Logout</a></li>
@@ -71,7 +56,7 @@ try {
             <?php endif ?>
 
             <?php if (isset($_SESSION['Username'])): ?>
-              <li class="dropdown">
+              <li class="dropdown active">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="addentry.php">Entry</a></li>
@@ -80,6 +65,16 @@ try {
               </li>
             <?php endif ?>
           </ul>
+
+          <form class="navbar-form navbar-right" role="form">
+            <div class="form-group">
+              <input type="text" placeholder="User name" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
 
         </div><!--/.navbar-collapse -->
       </div>

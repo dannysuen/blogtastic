@@ -2,6 +2,12 @@
 
 require("config.php");
 
+try {
+  $db_handler = new PDO("sqlite:blogtastic.db");
+} catch (PDOException $e) {
+  echo $e->getMessage();
+}
+
 if (isset($_GET['id'])) {
   if (!is_numeric($_GET['id'])) {
      $error = 1;
@@ -39,7 +45,7 @@ if (isset($_POST['submit'])) {
   }
 } else {
 
-  require("header.php");
+  require("viewentry_header.php");
 
   if ($validentry == 0) {
     $sql = "SELECT Entries.*, Categories.CategoryName FROM Entries, Categories " .
